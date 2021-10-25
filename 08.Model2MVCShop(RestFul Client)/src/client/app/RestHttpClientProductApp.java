@@ -275,8 +275,8 @@ public static void listProductTest_Codehaus() throws Exception{
 	//[ ¹æ¹ý 3 : codehaus »ç¿ë]
 	Search search =  new Search();
 	search.setCurrentPage(1);
-	search.setSearchCondition("0");
-	search.setSearchKeyword("10001");
+	//search.setSearchCondition("0");
+	//search.setSearchKeyword("10001");
 	search.setOrderOption(0);
 	
 	ObjectMapper objectMapper01 = new ObjectMapper();
@@ -311,11 +311,20 @@ public static void listProductTest_Codehaus() throws Exception{
 	System.out.println(jsonobj);
 	JSONArray jsonarray = (JSONArray)(jsonobj.get("list"));
 	
+	
+	for (Object object : jsonarray) {
+		Product product = objectMapper01.readValue(object.toString(), Product.class);
+		System.out.println(object.toString());
+		System.out.println("¾Ó±â¸ðÂî" + product);
+		System.out.println("dddddddddddd");
+		
+	}//1ÀÏ2¶ËÁøÈ£ ÀÛÇ°
+	
 
 //	ObjectMapper objectMapper = new ObjectMapper();
 //	 User user = objectMapper.readValue(jsonarray.toString(), User.class);
 	
-	 System.out.println(jsonarray.toString());
+	 //System.out.println(jsonarray.toString());
 }	
 
 
