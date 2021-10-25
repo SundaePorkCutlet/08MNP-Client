@@ -13,6 +13,9 @@ public class Product {
 	private int prodNo;
 	private Date regDate;
 	private String proTranCode;
+	int tranNo;
+	int amount;
+	int purchaseAmount;
 	
 	public Product(){
 	}
@@ -66,10 +69,34 @@ public class Product {
 		this.regDate = regDate;
 	}
 
-	// Override
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public int getTranNo() {
+		return tranNo;
+	}
+
+	public void setTranNo(int tranNo) {
+		this.tranNo = tranNo;
+	}
+
+	public int getPurchaseAmount() {
+		return purchaseAmount;
+	}
+
+	public void setPurchaseAmount(int purchaseAmount) {
+		this.purchaseAmount = purchaseAmount;
+	}
+
+	@Override
 	public String toString() {
-		return "ProductVO : [fileName]" + fileName
-				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
+		return "Product [fileName=" + fileName + ", manuDate=" + manuDate + ", price=" + price + ", prodDetail="
+				+ prodDetail + ", prodName=" + prodName + ", prodNo=" + prodNo + ", regDate=" + regDate
+				+ ", proTranCode=" + proTranCode + ", amount=" + amount + "]";
 	}	
 }
