@@ -116,11 +116,12 @@ public static void addPurchaseTest_Codehaus() throws Exception{
 		//[ 방법 3 : codehaus 사용]
 		
 		User user01 = new User();
-		user01.setUserId("user001");
+		user01.setUserId("user01");
 		user01.setPassword("0000");
 		user01.setUserName("천석희");
 		
 		Product product01 = new Product();
+		product01.setProdNo(10005);
 		product01.setProdName("피자");
 		product01.setPrice(3333);
 		
@@ -152,16 +153,23 @@ public static void addPurchaseTest_Codehaus() throws Exception{
 		
 		//==> 다른 방법으로 serverData 처리 
 		//System.out.println("[ Server 에서 받은 Data 확인 ] ");
-		//String serverData = br.readLine();
-		//System.out.println(serverData);
+		String serverData = br.readLine();
+		System.out.println(serverData);
 		
 		//==> API 확인 : Stream 객체를 직접 전달 
-		JSONObject jsonobj = (JSONObject)JSONValue.parse(br);
+		System.out.println("brbrb"+br);
+		JSONObject jsonobj = (JSONObject)JSONValue.parse(serverData);
 		System.out.println(jsonobj);
-	
-		ObjectMapper objectMapper = new ObjectMapper();
-		 Purchase purchase = objectMapper.readValue(jsonobj.toString(), Purchase.class);
-		 System.out.println(purchase);
+		JSONArray jsonarray = (JSONArray)(jsonobj.get("list"));
+		
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		 Purchase purchase = objectMapper.readValue(jsonobj.toString(), Purchase.class);
+//		 System.out.println(purchase);
+		 
+		 for (Object object : jsonarray) {
+			System.out.println(jsonarray);
+				
+			}//1일2똥진호 작품
 	}	
 
 public static void updatePurchaseTestget_Codehaus() throws Exception{
@@ -169,7 +177,7 @@ public static void updatePurchaseTestget_Codehaus() throws Exception{
 	// HttpClient : Http Protocol 의 client 추상화 
 	HttpClient httpClient = new DefaultHttpClient();
 	
-	String url= 	"http://127.0.0.1:8090/purchase/json/updatePurchase/10020";
+	String url= 	"http://127.0.0.1:8090/purchase/json/updatePurchase/10001";
 
 	// HttpGet : Http Protocol 의 GET 방식 Request
 	HttpGet httpGet = new HttpGet(url);
@@ -227,7 +235,7 @@ public static void updatePurchaseTestpost_Codehaus() throws Exception{
 	//[ 방법 3 : codehaus 사용]
 	
 	User user01 = new User();
-	user01.setUserId("user001");
+	user01.setUserId("user01");
 	user01.setPassword("1111");
 	user01.setUserName("손석희");
 	
@@ -239,6 +247,8 @@ public static void updatePurchaseTestpost_Codehaus() throws Exception{
 	Purchase purchase01 =  new Purchase();
 	purchase01.setPurchaseProd(product01);
 	purchase01.setBuyer(user01);
+	purchase01.setTranNo(10001);
+	purchase01.setReceiverName("김석희");
 
 	ObjectMapper objectMapper01 = new ObjectMapper();
 	//Object ==> JSON Value 로 변환
@@ -302,15 +312,28 @@ public static void listPurchaseTest_Codehaus() throws Exception{
 	//search.setSearchKeyword("10001");
 	search.setOrderOption(0);
 	
+	User user = new User();
+	user.setUserId("user01");
+	
+	Purchase purchase = new Purchase();
+	purchase.setBuyer(user);
+	
+	
+	
 	ObjectMapper objectMapper01 = new ObjectMapper();
 	//Object ==> JSON Value 로 변환
-	String jsonValue = objectMapper01.writeValueAsString(search);
+
+
 	
-	
-	System.out.println(jsonValue);
-	HttpEntity httpEntity01 = new StringEntity(jsonValue,"utf-8");
-	System.out.println("ejflkwjflke"+httpEntity01);
-	httpPost.setEntity(httpEntity01);
+	JSONObject jsonObject = new JSONObject();
+	jsonObject.put("search", search);
+	jsonObject.put("purchase", purchase);
+	String strr = objectMapper01.writeValueAsString(jsonObject);
+	System.out.println(strr);
+
+
+	HttpEntity entity = new StringEntity(strr,"UTF-8");
+	httpPost.setEntity(entity);
 	HttpResponse httpResponse = httpClient.execute(httpPost);
 	
 	//==> Response 확인
@@ -336,9 +359,9 @@ public static void listPurchaseTest_Codehaus() throws Exception{
 	
 	
 	for (Object object : jsonarray) {
-		Purchase purchase = objectMapper01.readValue(object.toString(), Purchase.class);
+		Purchase purchase01 = objectMapper01.readValue(object.toString(), Purchase.class);
 		System.out.println(object.toString());
-		System.out.println("앙기모찌" + purchase);
+		System.out.println("앙기모찌" + purchase01);
 		System.out.println("dddddddddddd");
 		
 	}//1일2똥진호 작품
