@@ -361,8 +361,8 @@ public static void listPurchaseTest_Codehaus() throws Exception{
 	for (Object object : jsonarray) {
 		Purchase purchase01 = objectMapper01.readValue(object.toString(), Purchase.class);
 		System.out.println(object.toString());
-		System.out.println("¾Ó±â¸ğÂî" + purchase01);
-		System.out.println("dddddddddddd");
+		System.out.println(purchase01);
+	
 		
 	}//1ÀÏ2¶ËÁøÈ£ ÀÛÇ°
 	
